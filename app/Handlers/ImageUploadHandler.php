@@ -3,6 +3,7 @@
 namespace App\Handlers;
 
 use  Illuminate\Support\Str;
+use  Image;
 
 class ImageUploadHandler
 {
@@ -18,9 +19,10 @@ class ImageUploadHandler
      * @param     [object]    $file        [文件对象]
      * @param     [string]    $folder      [文件夹名称]
      * @param     [string]    $file_prefix [文件名首名称]
+     * @param     [int]       $max_width   [最大宽度]
      * @return    [string]                 [文件路径]
      */
-    public function save($file, $folder, $file_prefix)
+    public function save($file, $folder, $file_prefix, $max_width = false)
     {
         // 构建存储的文件夹规则，值如：uploads/images/avatars/201709/21/
         // 文件夹切割能让查找效率更高。
@@ -45,8 +47,44 @@ class ImageUploadHandler
         // 将图片移动到我们的目标存储路径中
         $file->move($upload_path, $filename);
 
+         // 如果限制了图片宽度，就进行裁剪
+        if ($max_width && $extension != 'gif') {
+
+            // 此类中封装的函数，用于裁剪图片
+            $this->reduceSize($upload_path . '/' . $filename, $max_width);
+        }
+
         return [
             'path' => config('app.url') . "/$folder_name/$filename"
         ];
     }
+
+
+    /**
+     * 缩小图片尺寸
+     * @Author    liuming
+     * @DateTime  2019-11-29
+     * @param     [string]    $file_path [文件路径]
+     * @param     [int]       $max_width [最大宽度]
+     * @return    [type]                 [description]
+     */
+    public function reduceSize($file_path,$max_width)
+    {
+        // 先实例化，传参是文件的磁盘物理路径
+        $image = Image::make($file_path);
+
+        // 进行大小调整的操作
+        $image->resize($max_width, null, function ($constraint) {
+
+            // 设定宽度是 $max_width，高度等比例缩放
+            $constraint->aspectRatio();
+
+            // 防止裁图时图片尺寸变大
+            $constraint->upsize();
+        });
+
+        // 对图片修改后进行保存
+        $image->save();
+    }
+
 }
