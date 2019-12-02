@@ -35,9 +35,9 @@
               <a class="dropdown-item" href="{{ route('users.edit', Auth::id()) }}">编辑资料</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" id="logout" href="javascript::">
-                  <form action="{{ route('logout') }}" method="POST">
+                  <form action="{{ route('logout') }}" method="POST" onsubmit="return confirm('您确定要退出吗？');">
                   {{ csrf_field() }}
-                  <button class="btn btn-block btn-danger" type="submit" name="button">退出</button>
+                  <button class="btn btn-block btn-danger" type="submit" name="button" >退出</button>
                   </form>
               </a>
               </div>
