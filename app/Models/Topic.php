@@ -54,5 +54,10 @@ class Topic extends Model
     	return route('topics.show',array_merge([$this->id,$this->slug],$params));
     }
 
+    //话题下的回复数量
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
 
 }
