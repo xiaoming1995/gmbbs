@@ -11,7 +11,7 @@ use Spatie\Permission\Traits\HasRoles;  //权限包
 
 class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use Notifiable,MustVerifyEmailTrait,HasRoles;
+    use Notifiable,MustVerifyEmailTrait,HasRoles,Traits\ActiveUserHelper;
 
     /**
      * The attributes that are mass assignable.
