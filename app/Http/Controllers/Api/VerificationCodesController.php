@@ -1,8 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Api;
-
-
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Overtrue\EasySms\EasySms;
@@ -17,8 +14,7 @@ class VerificationCodesController extends Controller
 
         try {
 
-
-        	if(app()->environment('production')) {
+        	if(!app()->environment('production')) {
         		$code = '1234';
         	}else {
         		
