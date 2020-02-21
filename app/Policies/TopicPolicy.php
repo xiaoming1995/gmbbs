@@ -9,7 +9,7 @@ class TopicPolicy extends Policy
 {	
 	//修改权限控制
     public function update(User $user, Topic $topic)
-    {
+    {   
         return $user->isAuthorOf($topic);
     }
 
