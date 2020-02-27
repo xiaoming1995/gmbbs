@@ -16,8 +16,9 @@ class TopicsController extends Controller
 	public function index(Request $request, TopicQuery $query)
     {
         $topics = $query->paginate();
-
-        return TopicResource::collection($topics);
+        
+        return $this->errorResponse(403, '您还没有通过认证', 1003);
+        // return TopicResource::collection($topics);
     }
 
     public function userIndex(Request $request, User $user,TopicQuery $query)
