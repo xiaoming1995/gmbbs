@@ -23,7 +23,7 @@ class User extends Authenticatable implements MustVerifyEmailContract,JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone','password','introduction','avatar','weixin_openid', 'weixin_unionid'
+        'name', 'email', 'phone','password','introduction','avatar','weixin_openid', 'weixin_unionid','registration_id'
     ];
 
     /**
