@@ -18,6 +18,10 @@
         <li class="nav-item {{ category_nav_active(4) }}"><a class="nav-link" href="{{ route('categories.show', 4) }}">公告</a></li>
       </ul>
 
+      <ul class="navbar-nav">
+          
+      </ul>
+
       <!-- Right Side Of Navbar -->
       <ul class="navbar-nav navbar-right">
         <!-- Authentication Links -->

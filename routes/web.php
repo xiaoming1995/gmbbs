@@ -12,7 +12,7 @@
 */
 
 //暂时重定向去话题页面
-Route::get('/', 'TopicsController@index')->name('root');
+Route::get('/', 'PagesController@root')->name('root');
 
 
 Auth::routes();
